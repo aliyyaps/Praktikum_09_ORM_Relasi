@@ -45,7 +45,9 @@
 
         <td>{{ $mhs ->nim }}</td>
         <td>{{ $mhs ->nama }}</td>
-        <td>{{ $mhs ->kelas }}</td>
+
+        <!-- Praktikum 1 JS 9 (Langkah 19) - Menambahkan ->nama_kelas -->
+        <td>{{ $mhs ->kelas ->nama_kelas }}</td>
         <td>{{ $mhs ->jurusan }}</td>
 
         <!-- Tugas Praktikum 7 No 1 -->
