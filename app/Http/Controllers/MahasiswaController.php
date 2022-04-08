@@ -39,7 +39,11 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswa.create');
+        // Praktikum 1 JS 9 (Langkah 21)
+        $kelas = Kelas::all(); //mendapatkan data dari tabel kelas
+        return view('mahasiswa.create', ['kelas' => $kelas]);
+
+        // return view('mahasiswa.create');
     }
 
     /**
