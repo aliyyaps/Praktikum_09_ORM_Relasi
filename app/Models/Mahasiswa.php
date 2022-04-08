@@ -31,4 +31,11 @@ class Mahasiswa extends Model //Definisi Model
         'Alamat',
         'Tanggal_lahir',
     ];
+
+    // Praktikum 1 JS 9 (Langkah 17)
+    // Mendefinisikan relasi kelas
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
 };
