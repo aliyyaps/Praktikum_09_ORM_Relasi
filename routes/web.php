@@ -19,3 +19,6 @@ Route::resource('/mahasiswa', MahasiswaController::class);
 
 // Tugas Praktikum 7 No 3
 Route::get('search', [MahasiswaController::class, 'search'])->name('search');
+
+// Latihan JS 9 (Langkah 10)
+Route::get('mahasiswa/nilai/{nim}', [MahasiswaController::class, 'nilai'])->name('nilai');
