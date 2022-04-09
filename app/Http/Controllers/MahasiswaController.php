@@ -99,7 +99,9 @@ class MahasiswaController extends Controller
     public function show($Nim)
     {
         //menampilkan detail data dengan menemukan/berdasarkan Nim Mahasiswa
-        $Mahasiswa = Mahasiswa::find($Nim);
+        //code sebelum dibuat relasi --> $Mahasiswa = Mahasiswa::find($Nim);
+        // Praktikum 1 JS 9 (Langkah 26)
+        $Mahasiswa = Mahasiswa::with('kelas')->where('nim', $Nim)->first();
         return view('mahasiswa.detail', compact('Mahasiswa'));
     }
 
