@@ -28,7 +28,7 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::with('kelas')->get();
 
         // Mengambil semua isi tabel 
-        $posts = Mahasiswa::orderBy('id', 'asc')->paginate(3);
+        $posts = Mahasiswa::orderBy('nim', 'asc')->paginate(3);
         return view('mahasiswa.index', ['mahasiswa' => $posts]);
     }
 
@@ -114,8 +114,12 @@ class MahasiswaController extends Controller
     public function edit($Nim)
     {
         //menampilkan detail data dengan menemukan berdasarkan Nim Mahasiswa untuk diedit
-        $Mahasiswa = DB::table('mahasiswa')->where('nim', $Nim)->first();
-        return view('mahasiswa.edit', compact('Mahasiswa'));
+        //codingan sebelumnya --> $Mahasiswa = DB::table('mahasiswa')->where('nim', $Nim)->first();
+
+        // Praktikum 1 JS 9 (Langkah 29)
+        $Mahasiswa = Mahasiswa::with('kelas')->where('nim', $Nim)->first();
+        $kelas = Kelas::all(); //mendapatkan data dari tabel kelas
+        return view('mahasiswa.edit', compact('Mahasiswa', 'kelas'));
     }
 
     /**
@@ -140,8 +144,25 @@ class MahasiswaController extends Controller
             'Tanggal_lahir' => 'required',
         ]);
 
+        // Praktikum 1 JS 9 (Langkah 29)
+        $mahasiswa = Mahasiswa::with('kelas')->where('nim', $Nim)->first();
+        // $mahasiswa->nim = $request->get('Nim');
+        $mahasiswa->nama = $request->get('Nama');
+        $mahasiswa->kelas_id = $request->get('Kelas');
+        $mahasiswa->jurusan = $request->get('Jurusan');
+        $mahasiswa->email = $request->get('Email');
+        $mahasiswa->alamat = $request->get('Alamat');
+        $mahasiswa->tanggal_lahir = $request->get('Tanggal_lahir');
+
         //fungsi eloquent untuk mengupdate data inputan kita
-        Mahasiswa::find($Nim)->update($request->all());
+        // Mahasiswa::find($Nim)->update($request->all());
+
+        $idkelas = $request->get('Kelas');
+        $kelas = Kelas::find($idkelas);
+
+        //fungsi eloquent untuk mengupdate data dengan relasi belongsTo
+        $mahasiswa->kelas()->associate($kelas);
+        $mahasiswa->save();
 
         //jika data berhasil diupdate, akan kembali ke halaman utama
         return redirect()->route('mahasiswa.index')
