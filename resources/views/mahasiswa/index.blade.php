@@ -62,6 +62,9 @@
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Delete</button>
+
+                <!-- Latihan JS 9 (Langkah 10) -->
+                <a class="btn btn-primary" href="{{ route('nilai',$mhs->nim) }}">Nilai</a>
             </form>
         </td>
     </tr>
