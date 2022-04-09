@@ -58,7 +58,7 @@ class MahasiswaController extends Controller
         $request->validate([
             'Nim' => 'required',
             'Nama' => 'required',
-            'Kelas' => 'required',
+            'kelas' => 'required',
             'Jurusan' => 'required',
 
             // Tugas Praktikum 7 No 1
@@ -67,8 +67,23 @@ class MahasiswaController extends Controller
             'Tanggal_lahir' => 'required',
         ]);
 
-        //fungsi eloquent untuk menambah data
-        Mahasiswa::create($request->all());
+        // Praktikum 1 JS 9 (Langkah 24)
+        $mahasiswa = new Mahasiswa;
+        $mahasiswa->nim = $request->get('Nim');
+        $mahasiswa->nama = $request->get('Nama');
+        // $mahasiswa->kelas_id = $request->get('Kelas');
+        $mahasiswa->jurusan = $request->get('Jurusan');
+        $mahasiswa->email = $request->get('Email');
+        $mahasiswa->alamat = $request->get('Alamat');
+        $mahasiswa->tanggal_lahir = $request->get('Tanggal_lahir');
+
+        $idkelas = $request->get('kelas');
+        $kelas = Kelas::find($idkelas);
+
+        // //fungsi eloquent untuk menambah data
+        // Mahasiswa::create($request->all());
+        $mahasiswa->kelas()->associate($kelas);
+        $mahasiswa->save();
 
         //jika data berhasil ditambahkan, akan kembali ke halaman utama
         return redirect()->route('mahasiswa.index')
