@@ -13,7 +13,7 @@ class CreateRelasiMahasiswaMatakuliah extends Migration
      */
     public function up()
     {
-        Schema::create('relasi_mahasiswa_matakuliah', function (Blueprint $table) {
+        Schema::create('mahasiswa_matakuliah', function (Blueprint $table) {
             $table->id();
             //foreign key dari tabel mahasiswa
             $table->string('mahasiswa_id', 10);
