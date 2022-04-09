@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\DB;
 use App\Models\Kelas;
+use App\Models\Mahasiswa_MataKuliah;
 
 class MahasiswaController extends Controller
 {
@@ -189,5 +190,16 @@ class MahasiswaController extends Controller
         $keyword = $request->search;
         $mahasiswa = Mahasiswa::where('nama', 'like', "%" . $keyword . "%")->paginate(3);
         return view(view: 'mahasiswa.index', data: compact(var_name: 'mahasiswa'));
+    }
+
+    // Latihan JS 9 Langkah 11
+    public function nilai($Nim)
+    {
+        // Join relasi ke mahasiswa dan mata kuliah
+        $daftar = Mahasiswa_MataKuliah::where("mahasiswa_id", $Nim)->get();
+        $daftar->mahasiswa = Mahasiswa::with('kelas')->where("nim", $Nim)->first();
+
+        // Menampilkan nilai
+        return view('mahasiswa.nilai', compact('daftar'));
     }
 }
