@@ -24,15 +24,20 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="Nim">Nim</label>
-                        <input type="text" name="Nim" class="form-control" id="Nim" value="{{ $Mahasiswa->nim }}" aria-describedby="Nim">
+                        <input readonly type="text" name="Nim" class="form-control" id="Nim" value="{{ $Mahasiswa->nim }}" aria-describedby="Nim">
                     </div>
                     <div class="form-group">
                         <label for="Nama">Nama</label>
                         <input type="text" name="Nama" class="form-control" id="Nama" value="{{ $Mahasiswa->nama }}" aria-describedby="Nama">
                     </div>
+                    <!-- Praktikum 1 JS 9 (Langkah 29) -->
                     <div class="form-group">
                         <label for="Kelas">Kelas</label>
-                        <input type="Kelas" name="Kelas" class="form-control" id="Kelas" value="{{ $Mahasiswa->kelas }}" aria-describedby="Kelas">
+                        <select class="form-control" name="Kelas">
+                            @foreach($kelas as $kls)
+                            <option value="{{$kls->id}}" {{ $Mahasiswa->kelas_id == $kls->id ? 'selected' : '' }}>{{$kls->nama_kelas}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="Jurusan">Jurusan</label>
@@ -49,8 +54,8 @@
                         <input type="Alamat" name="Alamat" class="form-control" id="Alamat" value="{{ $Mahasiswa->alamat }}" aria-describedby="Alamat">
                     </div>
                     <div class="form-group">
-                        <label for="Tanggal_Lahir">Tanggal_Lahir</label>
-                        <input type="Tanggal_Lahir" name="Tanggal_Lahir" class="form-control" id="Tanggal_Lahir" value="{{ $Mahasiswa->tanggal_lahir }}" aria-describedby="Tanggal_Lahir">
+                        <label for="Tanggal_Lahir">Tanggal Lahir</label>
+                        <input type="date" name="Tanggal_lahir" class="form-control" id="Tanggal_Lahir" value="{{ $Mahasiswa->tanggal_lahir }}" aria-describedby="Tanggal_Lahir">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
